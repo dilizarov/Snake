@@ -1,0 +1,28 @@
+body {
+	text-align: center;
+}
+
+.tile {
+	display: inline-block;
+	height: 15px;
+	width: 15px;
+	background-color: gray;
+}
+
+.wall {
+	display: inline-block;
+	background-color: black;
+	height: 15px;
+	width: 15px;
+}
+
+.board {
+	margin: 15px;
+}
+
+.snake {
+	display: inline-block;
+	height: 15px;
+	width: 15px;
+	background-color: #C8C8C8;
+}
