@@ -9,7 +9,6 @@ var SnakeGame = (function(SnakeGame) {
 		37: "W"
 	};
 
-
 	View.prototype.render = function() {
 		$('.board').empty();
 		var grid = this.board.renderBoard(this.board.width, this.board.height);
@@ -19,8 +18,10 @@ var SnakeGame = (function(SnakeGame) {
 			for (var j = 0, len = grid[i].length; j < len; j++) {
 				if (grid[i][j] === "W") {
 					$div.append("<span class=wall></span>");
-				} else if (grid[i][j] === SnakeGame.Snake.SYMBOL) {
+				} else if (grid[i][j] === SnakeGame.Snake.SYMBOL || grid[i][j] === "H") {
 					$div.append("<span class=snake></span>");
+				} else if (grid[i][j] === "A") {
+					$div.append("<span class=apple></span>");
 				} else {
 					$div.append("<span class=tile></span>");
 				}
@@ -36,16 +37,19 @@ var SnakeGame = (function(SnakeGame) {
 		$(window).keydown(function(event) {
 
 			if (event.keyCode >= 37 && event.keyCode <= 40) {
+				var diffDir = SnakeGame.Snake.DIFFS[View.KEYS[event.keyCode]];
+				var curDir = SnakeGame.Snake.DIFFS[thatView.board.snake.direction];
+
+				if ([diffDir[0] + curDir[0], diffDir[1] + curDir[1]].toString() === [0,0].toString()) {
+					console.log("Bonkers!");
+				} else {
 				thatView.board.snake.turn(View.KEYS[event.keyCode]);
+				}
 			}
 
 			if (event.keyCode === 82) {
 				thatView.board = new SnakeGame.Board();
 			}
-
-			console.log(event.keyCode);
-			console.log(thatView.board.snake);
-			console.log(thatView.board.snake.direction);
 
 		});
 
@@ -53,15 +57,13 @@ var SnakeGame = (function(SnakeGame) {
  			50)
 	};
 
-	View.prototype.end = function() {
-		this.board.snake.delete();
-		this.board.delete();
-		this.delete();
-	}
-
 	View.prototype.step = function () {
 		this.board.snake.move();
+		// if (this.board.didLose()) {
+// 			$('body').append($('<div>').text("game over").addClass('gameover'));
+// 		} else {
 		this.render();
+	  //}
 	};
 
 	return SnakeGame;

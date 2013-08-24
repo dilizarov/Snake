@@ -26,3 +26,15 @@ body {
 	width: 15px;
 	background-color: #C8C8C8;
 }
+
+.gameover {
+	color: red;
+	font-size: 40px;
+}
+
+.apple {
+	display: inline-block;
+	height: 15px;
+	width: 15px;
+	background-color: green;
+}

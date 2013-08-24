@@ -30,5 +30,9 @@ var SnakeGame = (function(SnakeGame) {
 		this.direction = newDir;
 	}
 
+	Snake.prototype.add = function (point) {
+		this.segments.unshift(point);
+	}
+
 	return SnakeGame;
 })(SnakeGame || {});
